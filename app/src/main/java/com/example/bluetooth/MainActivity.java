@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    private Button On,Off,Visible,list;
+    private Button On,Off,Visible,list,Connect,send,vcontacts;
     private BluetoothAdapter BA;
     private Set<BluetoothDevice>pairedDevices;
     private ListView lv;
@@ -30,28 +30,28 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        On = (Button)findViewById(R.id.button1);
-        Off = (Button)findViewById(R.id.button2);
-        Visible = (Button)findViewById(R.id.button3);
-        Button send = (Button)findViewById(R.id.button4);
-        list = (Button)findViewById(R.id.button5);
+        //On = (Button)findViewById(R.id.button1);
+        //Off = (Button)findViewById(R.id.button2);
+        Connect = (Button)findViewById(R.id.btnConnect);
+        //Visible = (Button)findViewById(R.id.button3);
+        send = (Button)findViewById(R.id.btnSend);
+        vcontacts = (Button)findViewById(R.id.btnVcontacts);
+        //list = (Button)findViewById(R.id.button5);
         lv = (ListView)findViewById(R.id.listView1);
 
         BA = BluetoothAdapter.getDefaultAdapter();
     }
 
-    public void send(View view)throws IOException{
-        String msg = "getREKT";
-        //mmOutputStream.write(msg.getBytes());
-        Toast.makeText(getApplicationContext(),"Number Added",
-                Toast.LENGTH_LONG).show();
+    public void connect(View view){
+        on(view);
+        list(view);
     }
 
     public void on(View view){
         if (!BA.isEnabled()) {
             Intent turnOn = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(turnOn, 0);
-            Toast.makeText(getApplicationContext(),"Turned on"
+            Toast.makeText(getApplicationContext(),"Connected to device"
                     ,Toast.LENGTH_LONG).show();
         }
         else{
@@ -71,13 +71,26 @@ public class MainActivity extends Activity {
         final ArrayAdapter adapter = new ArrayAdapter
                 (this,android.R.layout.simple_list_item_1, list);
         lv.setAdapter(adapter);
+    }
 
-}
+    public void send(View view)throws IOException{
+        String msg = "6461216921";
+        //mmOutputStream.write(msg.getBytes());
+        Toast.makeText(getApplicationContext(),"Number Added",
+                Toast.LENGTH_LONG).show();
+    }
+
     public void off(View view){
         BA.disable();
         Toast.makeText(getApplicationContext(),"Turned off" ,
                 Toast.LENGTH_LONG).show();
     }
+
+    public void vcontacts (View view) {
+        Toast.makeText(getApplicationContext(),"Desplegando Contactos" ,
+                Toast.LENGTH_LONG).show();
+    }
+
     public void visible(View view){
         Intent getVisible = new Intent(BluetoothAdapter.
                 ACTION_REQUEST_DISCOVERABLE);
