@@ -12,5 +12,6 @@
     <string name="connect">Connect to Device</string>
     <string name="getlocation">Get Location</string>
     <string name="vcontacts">View Contacts</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
 
 </resources>

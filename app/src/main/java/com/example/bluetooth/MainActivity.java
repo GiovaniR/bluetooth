@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import android.drm.DrmStore;
 import android.os.Bundle;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -89,6 +90,8 @@ public class MainActivity extends Activity {
     public void vcontacts (View view) {
         Toast.makeText(getApplicationContext(),"Desplegando Contactos" ,
                 Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, ContactsActivity.class);
+        startActivity(intent);
     }
 
     public void visible(View view){
