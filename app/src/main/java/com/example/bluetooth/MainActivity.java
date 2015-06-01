@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.drm.DrmStore;
 import android.os.Bundle;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -76,8 +79,10 @@ public class MainActivity extends Activity {
 
     public void send(View view)throws IOException{
         String msg = "6461216921";
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        msg = sharedPref.getString("Contacts","404 not found");
         //mmOutputStream.write(msg.getBytes());
-        Toast.makeText(getApplicationContext(),"Number Added",
+        Toast.makeText(getApplicationContext(),msg,
                 Toast.LENGTH_LONG).show();
     }
 

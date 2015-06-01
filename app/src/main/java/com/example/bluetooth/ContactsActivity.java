@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -56,14 +57,17 @@ public class ContactsActivity extends Activity implements AdapterView.OnItemClic
             @Override
             public void onClick(View v) {
                 StringBuilder checkedcontacts= new StringBuilder();
+                StringBuilder checkedContactsNames = new StringBuilder();
 
-                for(int i = 0; i < name1.size(); i++)
+                for(int i = 0; i < phno1.size(); i++)
 
                 {
                     if(ma.mCheckStates.get(i)==true)
                     {
-                        checkedcontacts.append(name1.get(i).toString());
-                        checkedcontacts.append("\n");
+                        checkedcontacts.append(phno1.get(i).toString().replaceAll(" ", "").replace("+521", ""));
+                        checkedcontacts.append(";");
+                        checkedContactsNames.append(name1.get(i).toString());
+                        checkedContactsNames.append("\n");
 
                     }
                     else
@@ -74,11 +78,12 @@ public class ContactsActivity extends Activity implements AdapterView.OnItemClic
 
                 }
 
-                Toast.makeText(ContactsActivity.this, checkedcontacts, Toast.LENGTH_SHORT).show();
+               Toast.makeText(ContactsActivity.this, checkedContactsNames, Toast.LENGTH_SHORT).show();
+               //Toast.makeText(ContactsActivity.this, checkedcontacts, Toast.LENGTH_SHORT).show();
                 //Save contacts on sharedprefferences in order to send them to micro
-                SharedPreferences sharedPref = ContactsActivity.this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("Contacts",checkedcontacts.toString());
+                editor.putString("Contacts", checkedcontacts.toString());
                 editor.commit();
             }
         });
